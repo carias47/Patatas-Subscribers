@@ -1,0 +1,33 @@
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="login()">
+  <div class="flex flex-column">
+    <span class="text-4xl text-center mb-4">Login</span>
+    <mat-form-field>
+      <mat-label>User</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="userName"
+        placeholder="User Name"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+      />
+    </mat-form-field>
+    <button
+      mat-button
+      mat-flat-button
+      [disabled]="myForm.invalid"
+      type="submit"
+      color="primary"
+    >
+      <mat-icon>login</mat-icon>Login
+    </button>
+  </div>
+</form>
