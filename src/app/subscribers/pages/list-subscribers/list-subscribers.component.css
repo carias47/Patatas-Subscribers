@@ -1,0 +1,12 @@
+  .table-container {
+    width: 100%;
+    max-width: 1200px ; 
+    margin: 50px auto; 
+    overflow-x: auto; 
+  }
+
+  @media (max-width: 600px) {
+    .table-container {
+      max-width: 100%; 
+    }
+  }

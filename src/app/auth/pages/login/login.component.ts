@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { LoginResponse } from '../../interfaces/login-response.interface';
 import { LoginUser } from '../../interfaces/login-usuario.dto';
 
 @Component({

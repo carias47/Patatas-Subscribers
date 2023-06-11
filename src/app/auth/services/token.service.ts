@@ -13,10 +13,16 @@ export class TokenService {
     return false;
   }
   setToken(token: string): void {
-    localStorage.setItem('token', token);
+    localStorage.setItem('accessToken', token);
+  }
+  setRefreshToken(refreshToken: string) {
+    localStorage.setItem('refreshToken', refreshToken);
+  }
+  getRefreshToken() {
+    return localStorage.getItem('refreshToken');
   }
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem('accessToken');
   }
   logout(): void {
     localStorage.clear();
