@@ -62,5 +62,5 @@ export interface Subscriber {
   PhoneNumber: number;
   JobTitle: string;
   Area: string;
-  Topics: [];
+  Topics?: [];
 }

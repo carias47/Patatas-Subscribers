@@ -26,7 +26,7 @@ export class LoginComponent {
     this.authService.login(userName, password).subscribe({
       next: () => this.router.navigateByUrl('/subscribers'),
       error: (message) => {
-        Swal.fire('Error', message, 'error');
+        Swal.fire('Error', message.error.error, 'error');
       },
     });
   }

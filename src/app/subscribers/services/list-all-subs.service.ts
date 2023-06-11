@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environments';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 
 import { Subs, Subscriber } from '../interfaces/list-all-subscribers.interface';
 
@@ -21,10 +21,10 @@ export class listAllSubsService {
   public save(subscriber: Subs): Observable<Subs> {
     return this.httpClient.post<Subs>(`${this.Url}/subscribers`, subscriber);
   }
-  public update(id: number, product: Subscriber): Observable<Subscriber> {
+  public update(id: number, subscriber: Subscriber): Observable<Subscriber> {
     return this.httpClient.put<Subscriber>(
       `${this.Url}/subscribers/${id}`,
-      product
+      subscriber
     );
   }
   public delete(id: number): Observable<Subscriber> {

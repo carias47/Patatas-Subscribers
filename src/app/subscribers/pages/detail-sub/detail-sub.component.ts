@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Subscriber } from '../../interfaces/list-all-subscribers.interface';
 import { listAllSubsService } from '../../services/list-all-subs.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detail-sub',
@@ -30,10 +31,16 @@ export class DetailSubComponent {
     this.listAllService.detailSub(id).subscribe(
       (data) => {
         this.subscribe = data;
-        console.log(this.subscribe);
       },
       (err) => {
-        console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.router.navigate(['/']);
       }
     );
   }

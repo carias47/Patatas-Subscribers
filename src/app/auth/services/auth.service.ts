@@ -13,33 +13,23 @@ export class AuthService {
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
-  login(userName: string, password: string) {
+  login(userName: string, password: string): Observable<boolean> {
     const url = `${this.baseUrl}/account/login`;
     const body = { userName, password };
 
     return this.http.post<LoginResponse>(url, body).pipe(
-      tap((resp) => {
-        if (resp.Status === 1) {
-          const accessToken = resp.Token;
-          const refreshToken = resp.RefreshToken;
+      map((response) => {
+        if (response.Status === 1) {
+          const accessToken = response.Token;
+          const refreshToken = response.RefreshToken;
+          console.log(accessToken);
+          console.log(refreshToken);
           this.tokenService.setRefreshToken(refreshToken);
           localStorage.setItem('accessToken', accessToken);
+          return true;
         }
-      }),
-      map((resp) => resp.Status),
-      catchError((err) => of(err.error))
-      // map((response) => {
-      //   if (response.Status === 1) {
-      //     const accessToken = response.Token;
-      //     const refreshToken = response.RefreshToken;
-      //     console.log(accessToken);
-      //     console.log(refreshToken);
-      //     this.tokenService.setRefreshToken(refreshToken);
-      //     localStorage.setItem('accessToken', accessToken);
-      //     return true;
-      //   }
-      //   return false;
-      // })
+        return false;
+      })
     );
   }
   refreshToken(): Observable<string | null> {

@@ -58,7 +58,6 @@ export class CreateSubscriberComponent {
           PhoneNumber,
           JobTitle,
           Area,
-          Topics: [],
         },
       ],
     };
