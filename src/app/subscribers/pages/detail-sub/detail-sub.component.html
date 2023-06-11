@@ -1,0 +1,26 @@
+<div>
+  <div class="mt-5 lg:col-4 lg:col-offset-4 md:col-6 md:col-offset-3 md:mt-5">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title class="text-2xl">{{ subscribe.Name }}</mat-card-title>
+        <mat-card-subtitle class="text-lg">
+          {{ subscribe.Email }}</mat-card-subtitle
+        >
+      </mat-card-header>
+      <img mat-card-image src="../../../../assets/sub.jpg" alt="subscribe" />
+      <mat-card-content>
+        <ul class="text-lg">
+          <li>Country Code: {{ subscribe.CountryCode }}</li>
+          <li>Phone Number: {{ subscribe.PhoneNumber }}</li>
+          <li>Job Title: {{ subscribe.JobTitle }}</li>
+          <li>Area: {{ subscribe.Area }}</li>
+        </ul>
+      </mat-card-content>
+      <mat-card-actions class="m-auto">
+        <button mat-button mat-flat-button routerLink="['/']" color="primary">
+          Volver Inicio
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

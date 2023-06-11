@@ -56,11 +56,11 @@ export interface Subs {
 }
 
 export interface Subscriber {
-  name: string;
-  email: string;
-  countryCode: string;
-  phoneNumber: number;
-  jobTitle: string;
-  area: string;
-  topics: [];
+  Name: string;
+  Email: string;
+  CountryCode: string;
+  PhoneNumber: number;
+  JobTitle: string;
+  Area: string;
+  Topics: [];
 }

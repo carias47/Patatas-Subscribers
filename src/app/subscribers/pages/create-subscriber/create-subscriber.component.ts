@@ -16,12 +16,12 @@ export class CreateSubscriberComponent {
   ) {}
 
   public myForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(4)]],
-    email: ['', [Validators.required, Validators.email]],
-    countryCode: ['', [Validators.required, Validators.maxLength(2)]],
-    phoneNumber: ['', [Validators.required]],
-    jobTitle: ['', [Validators.required, Validators.minLength(4)]],
-    area: ['', [Validators.required, Validators.minLength(3)]],
+    Name: ['', [Validators.required, Validators.minLength(4)]],
+    Email: ['', [Validators.required, Validators.email]],
+    CountryCode: ['', [Validators.required, Validators.maxLength(2)]],
+    PhoneNumber: ['', [Validators.required]],
+    JobTitle: ['', [Validators.required, Validators.minLength(4)]],
+    Area: ['', [Validators.required, Validators.minLength(3)]],
   });
   isNotValidField(field: string): boolean | null {
     return (
@@ -47,18 +47,18 @@ export class CreateSubscriberComponent {
     return null;
   }
   onCreate() {
-    const { name, email, countryCode, phoneNumber, jobTitle, area } =
+    const { Name, Email, CountryCode, PhoneNumber, JobTitle, Area } =
       this.myForm.value;
     const subscriberData: Subs = {
       Subscribers: [
         {
-          name,
-          email,
-          countryCode,
-          phoneNumber,
-          jobTitle,
-          area,
-          topics: [],
+          Name,
+          Email,
+          CountryCode,
+          PhoneNumber,
+          JobTitle,
+          Area,
+          Topics: [],
         },
       ],
     };

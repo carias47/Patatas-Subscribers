@@ -8,6 +8,7 @@ import { ListSubscribersComponent } from './pages/list-subscribers/list-subscrib
 import { CreateSubscriberComponent } from './pages/create-subscriber/create-subscriber.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditSubscribeComponent } from './pages/edit-subscribe/edit-subscribe.component';
+import { DetailSubComponent } from './pages/detail-sub/detail-sub.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { EditSubscribeComponent } from './pages/edit-subscribe/edit-subscribe.co
     ListSubscribersComponent,
     CreateSubscriberComponent,
     EditSubscribeComponent,
+    DetailSubComponent,
   ],
   imports: [
     CommonModule,

@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { LoginUser } from '../../interfaces/login-usuario.dto';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +10,6 @@ import { LoginUser } from '../../interfaces/login-usuario.dto';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  user!: LoginUser;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,

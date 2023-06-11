@@ -4,6 +4,7 @@ import { DashboardSubscribersComponent } from './layouts/dashboard-subscribers/d
 import { ListSubscribersComponent } from './pages/list-subscribers/list-subscribers.component';
 import { CreateSubscriberComponent } from './pages/create-subscriber/create-subscriber.component';
 import { EditSubscribeComponent } from './pages/edit-subscribe/edit-subscribe.component';
+import { DetailSubComponent } from './pages/detail-sub/detail-sub.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,11 @@ const routes: Routes = [
         component: CreateSubscriberComponent,
       },
       {
-        path: 'edit-subscribe/:id',
+        path: 'detail/:id',
+        component: DetailSubComponent,
+      },
+      {
+        path: 'edit/:id',
         component: EditSubscribeComponent,
       },
       {

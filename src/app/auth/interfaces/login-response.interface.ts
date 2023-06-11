@@ -1,6 +1,5 @@
 export interface LoginResponse {
   Status: number;
-  User: User;
   Token: string;
   Message: null;
   TwoFactorType: null;
@@ -32,11 +31,4 @@ export interface Permission {
 export interface Preference {
   PreferenceKey: string;
   PreferenceValue: string;
-}
-export interface User {
-  FirstName: string;
-  LastName: string;
-  Email: string;
-  Token: string;
-  Status: number;
 }

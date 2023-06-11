@@ -2,7 +2,7 @@ import { environment } from 'src/environments/environments';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Subscribe } from '../models/subscribe';
+
 import { Subs, Subscriber } from '../interfaces/list-all-subscribers.interface';
 
 @Injectable({
@@ -12,19 +12,22 @@ export class listAllSubsService {
   Url: string = environment.baseUrl;
 
   constructor(private httpClient: HttpClient) {}
-  public listAllSubs(): Observable<Subscribe[]> {
-    return this.httpClient.get<Subscribe[]>(`${this.Url}/subscribers`);
+  public listAllSubs(): Observable<Subscriber[]> {
+    return this.httpClient.get<Subscriber[]>(`${this.Url}/subscribers`);
   }
   public detailSub(id: number): Observable<Subscriber> {
-    return this.httpClient.get<Subscriber>(`${this.Url}${id}`);
+    return this.httpClient.get<Subscriber>(`${this.Url}/subscribers/${id}`);
   }
   public save(subscriber: Subs): Observable<Subs> {
     return this.httpClient.post<Subs>(`${this.Url}/subscribers`, subscriber);
   }
-  public update(id: number, product: Subscribe): Observable<Subscribe> {
-    return this.httpClient.put<Subscribe>(`${this.Url}${id}`, product);
+  public update(id: number, product: Subscriber): Observable<Subscriber> {
+    return this.httpClient.put<Subscriber>(
+      `${this.Url}/subscribers/${id}`,
+      product
+    );
   }
-  public delete(id: number): Observable<Subscribe> {
-    return this.httpClient.delete<Subscribe>(`${this.Url}${id}`);
+  public delete(id: number): Observable<Subscriber> {
+    return this.httpClient.delete<Subscriber>(`${this.Url}${id}`);
   }
 }
