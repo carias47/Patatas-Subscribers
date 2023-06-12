@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .error-message {
+    text-align: center;
+  }
+
+  .error-title {
+    font-size: 3em;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .error-description {
+    font-size: 1.2em;
+    color: #777;
+    margin-bottom: 20px;
+  }
+
+  .error-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .error-title {
+      font-size: 2.5em;
+    }
+
+    .error-description {
+      font-size: 1em;
+    }
+  }
