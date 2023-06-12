@@ -18,7 +18,14 @@ export class CreateSubscriberComponent {
   public myForm: FormGroup = this.fb.group({
     Name: ['', [Validators.required, Validators.minLength(4)]],
     Email: ['', [Validators.required, Validators.email]],
-    CountryCode: ['', [Validators.required, Validators.maxLength(2)]],
+    CountryCode: [
+      '',
+      [
+        Validators.required,
+        Validators.maxLength(2),
+        Validators.pattern(/^[A-Z]{2}$/),
+      ],
+    ],
     PhoneNumber: ['', [Validators.required]],
     JobTitle: ['', [Validators.required, Validators.minLength(4)]],
     Area: ['', [Validators.required, Validators.minLength(3)]],
@@ -42,13 +49,19 @@ export class CreateSubscriberComponent {
 
         case 'maxlength':
           return `Maximum ${errors['maxlength'].requiredLength} caracters.`;
+
+        case 'pattern':
+          return `this field must be capitalized`;
       }
     }
     return null;
   }
   onCreate() {
+    console.log('hola');
+
     const { Name, Email, CountryCode, PhoneNumber, JobTitle, Area } =
       this.myForm.value;
+
     const subscriberData: Subs = {
       Subscribers: [
         {
@@ -58,9 +71,11 @@ export class CreateSubscriberComponent {
           PhoneNumber,
           JobTitle,
           Area,
+          Topics: [],
         },
       ],
     };
+    console.log(subscriberData);
 
     this.listAllSubsService.save(subscriberData).subscribe(
       (response) => {

@@ -4,6 +4,7 @@ import { listAllSubsService } from '../../services/list-all-subs.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-edit-subscribe',
@@ -11,14 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./edit-subscribe.component.css'],
 })
 export class EditSubscribeComponent {
-  subscribe: Subscriber = {
-    Name: '',
-    Email: '',
-    CountryCode: '',
-    PhoneNumber: 0,
-    JobTitle: '',
-    Area: '',
-  };
+  subscribe!: Subscriber;
 
   constructor(
     private listAllService: listAllSubsService,
@@ -26,10 +20,23 @@ export class EditSubscribeComponent {
     private router: Router,
     private fb: FormBuilder
   ) {}
+
+  get currentSub(): Subscriber {
+    const sub = this.myForm.value as Subscriber;
+    return sub;
+  }
+
   public myForm: FormGroup = this.fb.group({
     Name: ['', [Validators.required, Validators.minLength(4)]],
     Email: ['', [Validators.required, Validators.email]],
-    CountryCode: ['', [Validators.required, Validators.maxLength(2)]],
+    CountryCode: [
+      '',
+      [
+        Validators.required,
+        Validators.maxLength(2),
+        Validators.pattern(/^[A-Z]{2}$/),
+      ],
+    ],
     PhoneNumber: ['', [Validators.required]],
     JobTitle: ['', [Validators.required, Validators.minLength(4)]],
     Area: ['', [Validators.required, Validators.minLength(3)]],
@@ -52,71 +59,38 @@ export class EditSubscribeComponent {
 
         case 'maxlength':
           return `Maximum ${errors['maxlength'].requiredLength} caracters.`;
+
+        case 'pattern':
+          return `this field must be capitalized`;
       }
     }
     return null;
   }
   ngOnInit() {
     const id = this.activatedRoute.snapshot.params['id'];
-    this.listAllService.detailSub(id).subscribe(
-      (data) => {
-        this.subscribe = data;
-        this.myForm.patchValue({
-          Name: this.subscribe.Name,
-          Email: this.subscribe.Email,
-          CountryCode: this.subscribe.CountryCode,
-          PhoneNumber: this.subscribe.PhoneNumber,
-          JobTitle: this.subscribe.JobTitle,
-          Area: this.subscribe.Area,
-        });
-      },
-      (err) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'failed to update',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        this.router.navigate(['/']);
-      }
-    );
+    this.activatedRoute.params
+      .pipe(switchMap(() => this.listAllService.detailSub(id)))
+      .subscribe((sub) => {
+        if (!sub) {
+          return this.router.navigate(['/']);
+        }
+        this.myForm.reset(sub);
+        return;
+      });
   }
 
   onUpdate(): void {
-    if (this.myForm.invalid) return;
-
     const id = this.activatedRoute.snapshot.params['id'];
-    const { Name, Email, CountryCode, PhoneNumber, JobTitle, Area } =
-      this.myForm.value;
-    const subscriberData = {
-      Name,
-      Email,
-      CountryCode,
-      PhoneNumber,
-      JobTitle,
-      Area,
-    };
-    this.listAllService.update(id, subscriberData).subscribe(
-      (data) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'subscriber updated',
-          showConfirmButton: false,
-          timer: 1500,
-        });
 
-        this.router.navigate(['/']);
-      },
-      (err) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'failed to update',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    );
+    this.listAllService.update(id, this.currentSub).subscribe(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'subscriber updated',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.router.navigate(['/']);
+    });
+    return;
   }
 }

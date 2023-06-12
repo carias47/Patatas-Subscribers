@@ -38,7 +38,7 @@
             matInput
             type="text"
             formControlName="CountryCode"
-            placeholder="Country Code"
+            placeholder="CO"
           />
         </mat-form-field>
         <span *ngIf="isNotValidField('CountryCode')" class="custom-color">
@@ -85,7 +85,7 @@
           mat-button
           mat-Raised-button
           [disabled]="myForm.invalid"
-          type="button"
+          type="submit"
           color="warn"
         >
           <mat-icon>add</mat-icon>Create
@@ -98,7 +98,7 @@
           color="primary"
           routerLink="['/']"
         >
-          <mat-icon>home</mat-icon>Volver a inicio
+          <mat-icon>home</mat-icon>Go home
         </button>
       </div>
     </form>
