@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environments';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Subs, Subscriber } from '../interfaces/list-all-subscribers.interface';
 
@@ -28,6 +28,6 @@ export class listAllSubsService {
     );
   }
   public delete(id: number): Observable<Subscriber> {
-    return this.httpClient.delete<Subscriber>(`${this.Url}${id}`);
+    return this.httpClient.delete<Subscriber>(`${this.Url}/subscribers/${id}`);
   }
 }

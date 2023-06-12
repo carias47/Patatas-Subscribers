@@ -35,7 +35,7 @@
         <button mat-icon-button routerLink="/subscribers/edit/{{ element.Id }}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button>
+        <button mat-icon-button (click)="deleteSubs(element.Id)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

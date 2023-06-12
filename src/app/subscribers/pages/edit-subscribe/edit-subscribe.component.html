@@ -84,9 +84,19 @@
           mat-flat-button
           [disabled]="myForm.invalid"
           type="submit"
-          color="primary"
+          color="warn"
         >
-          <mat-icon>login</mat-icon>Login
+          <mat-icon>login</mat-icon>Edit
+        </button>
+
+        <button
+          mat-button
+          mat-flat-button
+          routerLink="['/']"
+          color="primary"
+          class="mt-3"
+        >
+          <mat-icon>login</mat-icon>Go home
         </button>
       </div>
     </form>

@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { environment } from 'src/environments/environments';
 import { LoginResponse } from '../interfaces/login-response.interface';
 import { TokenService } from './token.service';
@@ -22,8 +22,6 @@ export class AuthService {
         if (response.Status === 1) {
           const accessToken = response.Token;
           const refreshToken = response.RefreshToken;
-          console.log(accessToken);
-          console.log(refreshToken);
           this.tokenService.setRefreshToken(refreshToken);
           localStorage.setItem('accessToken', accessToken);
           return true;

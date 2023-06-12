@@ -11,11 +11,14 @@ import {
 import { Observable, catchError, concatMap, switchMap, throwError } from 'rxjs';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 @Injectable()
 export class SubsInterceptor implements HttpInterceptor {
   constructor(
     private tokenService: TokenService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<any> {
@@ -36,8 +39,6 @@ export class SubsInterceptor implements HttpInterceptor {
           if (refreshToken) {
             return this.authService.refreshToken().pipe(
               switchMap((refreshToken) => {
-                console.log(refreshToken);
-
                 this.tokenService.setToken(refreshToken!);
 
                 const newRequest = request.clone({
@@ -49,11 +50,20 @@ export class SubsInterceptor implements HttpInterceptor {
               }),
               catchError((error: HttpErrorResponse) => {
                 this.tokenService.logout();
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Session caducated',
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                this.router.navigate(['/']);
                 return throwError(error);
               })
             );
           }
         }
+
         return throwError(error);
       })
     );
